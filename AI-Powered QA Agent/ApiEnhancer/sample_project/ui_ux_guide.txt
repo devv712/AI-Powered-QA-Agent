@@ -1,0 +1,316 @@
+E-SHOP CHECKOUT - UI/UX GUIDELINES
+Version 1.0
+Last Updated: November 2025
+
+================================================================================
+COLOR SCHEME
+================================================================================
+
+Primary Colors:
+- Primary Blue: #007bff (used for product prices, headings, add to cart buttons)
+- Success Green: #28a745 (used for Pay Now button, success messages, discount messages)
+- Error Red: #FF0000 / red (used for validation error messages)
+
+Background Colors:
+- Page Background: #f5f5f5 (light gray)
+- Container Background: white (#ffffff)
+- Cart Section Background: #f9f9f9 (very light gray)
+- Discount Section Background: #e7f3ff (light blue tint)
+- Success Message Background: #d4edda (light green)
+
+Text Colors:
+- Primary Text: #333 (dark gray for headings)
+- Secondary Text: #444 (for subheadings)
+- Success Text: #155724 (dark green)
+- Error Text: red (for validation messages)
+- Empty Cart Text: #999 (medium gray)
+
+Button Colors:
+- Add to Cart Button: #007bff background, white text
+- Add to Cart Button Hover: #0056b3 background
+- Apply Discount Button: #28a745 background, white text
+- Apply Discount Button Hover: #218838 background
+- Pay Now Button: #28a745 background, white text
+- Pay Now Button Hover: #218838 background
+
+================================================================================
+TYPOGRAPHY
+================================================================================
+
+Font Family:
+- All text uses Arial, sans-serif
+
+Font Sizes:
+- Main Heading (h1): Default size (larger)
+- Section Headings (h2): Default size
+- Product Price: 24px, bold
+- Cart Total: 24px, bold
+- Button Text: 16px for standard buttons, 18px for Pay Now button
+- Success Message: 20px, bold
+- Error Messages: 14px
+- Regular Text: 16px
+
+Font Weights:
+- Headings: bold
+- Product Prices: bold
+- Cart Total: bold
+- Pay Now Button: bold
+- Labels: 500 (medium weight)
+- Regular Text: normal
+
+================================================================================
+LAYOUT & SPACING
+================================================================================
+
+Container:
+- Maximum width: 1200px
+- Centered on page
+- Padding: 30px
+- Border radius: 8px
+- Box shadow for depth
+
+Product Grid:
+- Responsive grid layout
+- Minimum card width: 250px
+- Gap between cards: 20px
+- Cards adjust automatically to screen size
+
+Form Elements:
+- Margin between form groups: 20px bottom
+- Label margin: 8px bottom
+- Input padding: 12px
+- Border radius on inputs: 5px
+
+================================================================================
+FORM VALIDATION UI/UX
+================================================================================
+
+Error Message Display Rules:
+1. Form validation errors MUST be displayed in RED text
+2. Error messages appear BELOW the respective input field
+3. Error messages have 5px margin-top spacing
+4. Error font size: 14px
+5. Errors are hidden by default (display: none)
+6. Errors become visible when validation fails
+7. Errors should disappear when the field is corrected
+
+Required Field Indicators:
+- All required fields marked with asterisk (*) after label
+- Required fields: Full Name, Email Address, Shipping Address
+- Shipping Method and Payment Method are also required (radio buttons)
+
+Validation Behavior:
+- Validation triggers on form submission (Pay Now button click)
+- Multiple errors can be displayed simultaneously
+- Each field has its own error message element
+- Form does not submit if validation fails
+
+Specific Error Messages:
+- Name field: "Name is required"
+- Email field: "Please enter a valid email address"
+- Address field: "Address is required"
+- Empty cart: "Your cart is empty. Please add items before checkout." (alert)
+
+================================================================================
+BUTTON STYLING
+================================================================================
+
+Add to Cart Buttons:
+- Background: #007bff (blue)
+- Text: white
+- Padding: 10px 20px
+- Border radius: 5px
+- Border: none
+- Cursor: pointer
+- Font size: 16px
+- Hover effect: darker blue (#0056b3)
+- Transition: background-color 0.3s
+
+Apply Discount Button:
+- Background: #28a745 (green)
+- Text: white
+- Padding: 10px 20px
+- Border radius: 5px
+- Border: none
+- Cursor: pointer
+- Font size: 16px
+- Hover effect: darker green (#218838)
+
+Pay Now Button:
+- Background: #28a745 (green) - MUST BE GREEN
+- Text: white
+- Padding: 15px 40px
+- Border radius: 5px
+- Border: none
+- Cursor: pointer
+- Font size: 18px
+- Font weight: bold
+- Full width: 100%
+- Margin top: 20px
+- Hover effect: darker green (#218838)
+- Transition: background-color 0.3s
+
+================================================================================
+INTERACTIVE ELEMENTS
+================================================================================
+
+Product Cards:
+- Border: 1px solid #ddd
+- Hover effect: card lifts up 5px (translateY(-5px))
+- Hover shadow: 0 4px 12px rgba(0,0,0,0.15)
+- Transition: transform 0.2s
+
+Quantity Input:
+- Width: 60px
+- Text alignment: center
+- Border: 1px solid #ddd
+- Border radius: 4px
+- Padding: 5px
+- Type: number
+- Min value: 0
+
+Radio Buttons:
+- Size: 18px × 18px
+- Cursor: pointer
+- Gap between options: 20px
+- Label aligned with radio button
+
+================================================================================
+CART DISPLAY
+================================================================================
+
+Empty Cart State:
+- Message: "Your cart is empty"
+- Text alignment: center
+- Color: #999 (gray)
+
+Cart Items:
+- Each item displayed in a row
+- Flex layout with space-between
+- Padding: 15px
+- Border bottom: 1px solid #ddd (except last item)
+- Shows: name, unit price, quantity input, line total
+
+Cart Total:
+- Font size: 24px
+- Font weight: bold
+- Text alignment: right
+- Margin top: 20px
+- Color: #333
+
+================================================================================
+DISCOUNT SECTION
+================================================================================
+
+Discount Section Styling:
+- Background: #e7f3ff (light blue)
+- Padding: 15px
+- Border radius: 5px
+- Margin: 20px 0
+
+Discount Input:
+- Width: 200px
+- Padding: 10px
+- Border: 1px solid #ddd
+- Border radius: 4px
+- Margin right: 10px
+
+Discount Messages:
+- Success message color: #28a745 (green)
+- Error message color: red
+- Font weight: bold
+- Margin top: 10px
+- Hidden by default
+
+================================================================================
+SUCCESS MESSAGE
+================================================================================
+
+Payment Success Display:
+- Background: #d4edda (light green)
+- Text color: #155724 (dark green)
+- Padding: 20px
+- Border radius: 5px
+- Text alignment: center
+- Font size: 20px
+- Font weight: bold
+- Margin top: 20px
+- Message text: "Payment Successful!"
+- Hidden by default (display: none)
+- Shown only after successful form validation
+- When shown, the checkout form is hidden
+
+================================================================================
+ACCESSIBILITY & USABILITY
+================================================================================
+
+Form Labels:
+- All form inputs have associated labels
+- Labels use 'for' attribute matching input ID
+- Labels displayed above inputs
+- Clear, descriptive label text
+
+Input Fields:
+- All inputs have placeholder text
+- Placeholder provides example or instruction
+- Inputs are clearly bordered and visible
+- Adequate padding for easy clicking/tapping
+
+Radio Buttons:
+- Grouped by name attribute
+- Clear labels for each option
+- Default selections specified (Standard shipping, Credit Card)
+- Easy to click/tap
+
+Responsive Design:
+- Product grid adapts to screen size
+- Minimum 250px card width maintains readability
+- Layout adjusts for mobile and desktop
+- Full-width Pay Now button works on all screen sizes
+
+Visual Feedback:
+- Hover effects on interactive elements
+- Color changes on button hover
+- Card lift effect on product hover
+- Clear visual distinction between states
+
+================================================================================
+ELEMENT IDs (for testing purposes)
+================================================================================
+
+Products:
+- product1-price, product2-price, product3-price
+- add-product1, add-product2, add-product3
+
+Cart:
+- cart-items (container)
+- cart-total
+- quantity-{productId} (dynamic)
+
+Discount:
+- discount-code (input)
+- apply-discount (button)
+- discount-message (message display)
+
+Form:
+- checkout-form (form element)
+- customer-name (input)
+- customer-email (input)
+- customer-address (textarea)
+- name-error, email-error, address-error (error messages)
+
+Shipping:
+- shipping-standard (radio)
+- shipping-express (radio)
+
+Payment:
+- payment-credit (radio)
+- payment-paypal (radio)
+
+Submission:
+- pay-now (button)
+- success-message (success display)
+
+================================================================================
+END OF UI/UX GUIDELINES
+================================================================================

@@ -1,0 +1,334 @@
+{
+  "api_version": "1.0",
+  "base_url": "https://api.eshop.example.com",
+  "endpoints": {
+    "add_to_cart": {
+      "method": "POST",
+      "path": "/cart/add",
+      "description": "Adds a product to the shopping cart",
+      "request_body": {
+        "product_id": {
+          "type": "string",
+          "required": true,
+          "description": "Unique identifier for the product (e.g., 'product1', 'product2', 'product3')",
+          "example": "product1"
+        },
+        "quantity": {
+          "type": "integer",
+          "required": true,
+          "description": "Number of items to add to cart",
+          "minimum": 1,
+          "example": 2
+        }
+      },
+      "response": {
+        "success": {
+          "status_code": 200,
+          "body": {
+            "message": "Product added to cart successfully",
+            "cart_item_count": "integer",
+            "cart_total": "number"
+          }
+        },
+        "error": {
+          "status_code": 400,
+          "body": {
+            "error": "Invalid product_id or quantity"
+          }
+        }
+      }
+    },
+    "update_cart_quantity": {
+      "method": "PUT",
+      "path": "/cart/update",
+      "description": "Updates the quantity of a product in the cart",
+      "request_body": {
+        "product_id": {
+          "type": "string",
+          "required": true,
+          "description": "Product identifier",
+          "example": "product2"
+        },
+        "quantity": {
+          "type": "integer",
+          "required": true,
+          "description": "New quantity (0 to remove item)",
+          "minimum": 0,
+          "example": 3
+        }
+      },
+      "response": {
+        "success": {
+          "status_code": 200,
+          "body": {
+            "message": "Cart updated successfully",
+            "cart_total": "number"
+          }
+        }
+      }
+    },
+    "apply_coupon": {
+      "method": "POST",
+      "path": "/cart/apply-coupon",
+      "description": "Applies a discount coupon code to the cart",
+      "request_body": {
+        "code": {
+          "type": "string",
+          "required": true,
+          "description": "Discount coupon code (case-insensitive)",
+          "valid_codes": ["SAVE15", "SAVE10"],
+          "example": "SAVE15"
+        }
+      },
+      "response": {
+        "success": {
+          "status_code": 200,
+          "body": {
+            "message": "Discount applied successfully",
+            "discount_percentage": "integer",
+            "discount_amount": "number",
+            "new_total": "number"
+          },
+          "example": {
+            "message": "15% discount applied!",
+            "discount_percentage": 15,
+            "discount_amount": 37.50,
+            "new_total": 212.48
+          }
+        },
+        "error": {
+          "status_code": 400,
+          "body": {
+            "error": "Invalid discount code"
+          }
+        }
+      },
+      "business_rules": {
+        "SAVE15": "Applies 15% discount to cart subtotal",
+        "SAVE10": "Applies 10% discount to cart subtotal",
+        "notes": [
+          "Only one coupon can be applied per order",
+          "Discount applies to subtotal before shipping",
+          "Code is case-insensitive"
+        ]
+      }
+    },
+    "calculate_shipping": {
+      "method": "POST",
+      "path": "/cart/calculate-shipping",
+      "description": "Calculates shipping cost based on selected method",
+      "request_body": {
+        "shipping_method": {
+          "type": "string",
+          "required": true,
+          "enum": ["standard", "express"],
+          "description": "Selected shipping method"
+        }
+      },
+      "response": {
+        "success": {
+          "status_code": 200,
+          "body": {
+            "shipping_method": "string",
+            "shipping_cost": "number",
+            "estimated_delivery": "string"
+          },
+          "example_standard": {
+            "shipping_method": "standard",
+            "shipping_cost": 0.00,
+            "estimated_delivery": "5-7 business days"
+          },
+          "example_express": {
+            "shipping_method": "express",
+            "shipping_cost": 10.00,
+            "estimated_delivery": "1-2 business days"
+          }
+        }
+      }
+    },
+    "validate_email": {
+      "method": "POST",
+      "path": "/validate/email",
+      "description": "Validates email address format",
+      "request_body": {
+        "email": {
+          "type": "string",
+          "required": true,
+          "description": "Email address to validate",
+          "example": "customer@example.com"
+        }
+      },
+      "response": {
+        "success": {
+          "status_code": 200,
+          "body": {
+            "valid": true,
+            "email": "string"
+          }
+        },
+        "error": {
+          "status_code": 400,
+          "body": {
+            "valid": false,
+            "error": "Invalid email format"
+          }
+        }
+      },
+      "validation_rules": {
+        "pattern": "Must contain @ symbol and valid domain",
+        "regex": "^[^\\s@]+@[^\\s@]+\\.[^\\s@]+$",
+        "examples_valid": ["user@example.com", "test.user@domain.co.uk"],
+        "examples_invalid": ["invalid.email", "missing@domain", "@nodomain.com"]
+      }
+    },
+    "submit_order": {
+      "method": "POST",
+      "path": "/orders/submit",
+      "description": "Submits the complete order for processing",
+      "request_body": {
+        "customer_name": {
+          "type": "string",
+          "required": true,
+          "description": "Customer's full name",
+          "example": "John Doe"
+        },
+        "customer_email": {
+          "type": "string",
+          "required": true,
+          "description": "Customer's email address",
+          "validation": "Must be valid email format",
+          "example": "john.doe@example.com"
+        },
+        "shipping_address": {
+          "type": "string",
+          "required": true,
+          "description": "Complete shipping address",
+          "example": "123 Main St, Apt 4B, New York, NY 10001"
+        },
+        "shipping_method": {
+          "type": "string",
+          "required": true,
+          "enum": ["standard", "express"],
+          "description": "Selected shipping method"
+        },
+        "payment_method": {
+          "type": "string",
+          "required": true,
+          "enum": ["credit_card", "paypal"],
+          "description": "Selected payment method"
+        },
+        "cart_items": {
+          "type": "array",
+          "required": true,
+          "description": "List of items in the cart",
+          "items": {
+            "product_id": "string",
+            "quantity": "integer",
+            "price": "number"
+          }
+        },
+        "discount_code": {
+          "type": "string",
+          "required": false,
+          "description": "Applied discount code if any",
+          "example": "SAVE15"
+        }
+      },
+      "response": {
+        "success": {
+          "status_code": 200,
+          "body": {
+            "message": "Payment Successful!",
+            "order_id": "string",
+            "order_total": "number",
+            "estimated_delivery": "string"
+          },
+          "example": {
+            "message": "Payment Successful!",
+            "order_id": "ORD-2025-11-19-12345",
+            "order_total": 222.48,
+            "estimated_delivery": "2025-11-21"
+          }
+        },
+        "error": {
+          "status_code": 400,
+          "body": {
+            "error": "Validation failed",
+            "details": {
+              "field_errors": ["array of field-specific errors"]
+            }
+          }
+        }
+      },
+      "validation_requirements": {
+        "required_fields": [
+          "customer_name (non-empty)",
+          "customer_email (valid format)",
+          "shipping_address (non-empty)",
+          "shipping_method (standard or express)",
+          "payment_method (credit_card or paypal)",
+          "cart_items (at least one item)"
+        ],
+        "cart_validation": "Cart cannot be empty",
+        "email_validation": "Must match regex pattern for valid email"
+      }
+    },
+    "get_cart": {
+      "method": "GET",
+      "path": "/cart",
+      "description": "Retrieves current cart contents and totals",
+      "response": {
+        "success": {
+          "status_code": 200,
+          "body": {
+            "items": "array",
+            "subtotal": "number",
+            "discount_applied": "boolean",
+            "discount_percentage": "number",
+            "discount_amount": "number",
+            "shipping_cost": "number",
+            "total": "number"
+          },
+          "example": {
+            "items": [
+              {
+                "product_id": "product1",
+                "name": "Wireless Headphones",
+                "price": 99.99,
+                "quantity": 1,
+                "line_total": 99.99
+              },
+              {
+                "product_id": "product2",
+                "name": "Smart Watch",
+                "price": 149.99,
+                "quantity": 1,
+                "line_total": 149.99
+              }
+            ],
+            "subtotal": 249.98,
+            "discount_applied": true,
+            "discount_percentage": 15,
+            "discount_amount": 37.50,
+            "shipping_cost": 10.00,
+            "total": 222.48
+          }
+        }
+      }
+    }
+  },
+  "error_codes": {
+    "400": "Bad Request - Invalid input parameters",
+    "404": "Not Found - Resource does not exist",
+    "500": "Internal Server Error - Server-side error occurred"
+  },
+  "rate_limits": {
+    "requests_per_minute": 60,
+    "requests_per_hour": 1000
+  },
+  "authentication": {
+    "type": "Bearer Token",
+    "header": "Authorization: Bearer {token}",
+    "note": "For demo purposes, authentication is not enforced on the checkout page"
+  }
+}
